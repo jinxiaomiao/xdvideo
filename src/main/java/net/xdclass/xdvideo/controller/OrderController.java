@@ -10,6 +10,8 @@ import net.xdclass.xdvideo.domain.JsonData;
 import net.xdclass.xdvideo.dto.VideoOrderDto;
 import net.xdclass.xdvideo.service.VideoOrderService;
 import net.xdclass.xdvideo.utils.IpUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +28,13 @@ import java.util.Map;
  * 订单接口
  */
 @RestController
-//@RequestMapping("/user/api/v1/order")
-@RequestMapping("/api/v1/order")
+@RequestMapping("/user/api/v1/order")
+//@RequestMapping("/api/v1/order")
 public class OrderController {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    private Logger dataLogger = LoggerFactory.getLogger("dataLogger");
 
 
     @Autowired
@@ -39,10 +45,10 @@ public class OrderController {
                               HttpServletRequest request,
                               HttpServletResponse response) throws Exception {
 
-        //String ip = IpUtils.getIpAddr(request);
-        //int userId = request.getAttribute("user_id");
-        int userId = 1;    //临时写死的配置
-        String ip = "120.25.1.43";
+        String ip = IpUtils.getIpAddr(request);
+        int userId = (Integer)request.getAttribute("user_id");
+//        int userId = 1;    //临时写死的配置
+//        String ip = "120.25.1.43";
         VideoOrderDto videoOrderDto = new VideoOrderDto();
         videoOrderDto.setUserId(userId);
         videoOrderDto.setVideoId(videoId);
